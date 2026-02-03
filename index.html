@@ -158,16 +158,23 @@
 
         .post-img {
             width: 100%;           /* 宽度填满卡片 */
-            height: 220px;         /* 【关键】强制固定高度，您可以按需改成 200px 或 250px */
+            height: 250px;         /* 【关键】强制固定高度，您可以按需改成 200px 或 250px */
             object-fit: cover;     /* 【关键】智能裁剪，保证图片不变形 */
             border-bottom: 1px solid rgba(0,0,0,0.05); /* 加一条淡淡的分隔线 */
         }
 
         .post-content {
             padding: 1.5rem;
-            flex: 1;               /* 让文字区域自动填充剩余空间 */
-            display: flex;         
-            flex-direction: column;
+        }
+        .post-content p {
+            flex-grow: 1;          /* 撑开空间，把“阅读全文”按钮推到底部 */
+            margin-bottom: 1rem;
+            /* 限制显示 3 行文字 */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.6;      /* 增加行高，阅读更舒适 */
         }
         
         .post-meta {
@@ -296,7 +303,7 @@
     <div class="container">
         <main>
             <article class="post-card">
-                <img src="" class="post-img" alt="Anime Scene">
+                <img src="images/Astralair no shiroki towa.jpg" class="post-img" alt="Anime Scene">
                 <div class="post-content">
                     <div class="post-meta"><i class="far fa-calendar-alt"></i> 2023年10月24日 | <i class="fas fa-tag"></i> Galgame</div>
                     <h2 class="post-title">星辰恋曲的白色永恒</h2>
@@ -306,7 +313,7 @@
             </article>
 
             <article class="post-card">
-                <img src="" class="post-img" alt="Japan Scenery">
+                <img src="images/Sakura, Moyu. -as the Night's, Reincarnation-.jpg" class="post-img" alt="Japan Scenery">
                 <div class="post-content">
                     <div class="post-meta"><i class="far fa-calendar-alt"></i> 2023年10月20日 | <i class="fas fa-tag"></i> Galgame</div>
                     <h2 class="post-title">樱花、萌放</h2>
