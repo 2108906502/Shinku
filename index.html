@@ -1,2 +1,205 @@
-<h1>欢迎来到我的网站</h1>
-<p>这是搭建在 GitHub Pages 上的测试页面。</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikaidou Shinku</title>
+    <style>
+        /* 全局设置：字体和背景 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+            overflow: hidden; /* 防止滚动，像游戏界面一样 */
+        }
+
+        /* 背景图层：这里暂时用粉色渐变，以后你可以换成具体的图片URL */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); 
+            /* 如果有背景图，把上面这行删掉，换成下面这行： */
+            /* background-image: url('你的背景图片地址.jpg'); */
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* 樱花飘落效果（用纯CSS模拟） */
+        .sakura {
+            position: absolute;
+            top: -10px;
+            background: #ffc0cb;
+            border-radius: 100% 0 100% 0;
+            opacity: 0.6;
+            animation: fall linear infinite;
+            z-index: 2;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* 游戏主界面容器 */
+        .game-ui {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 左侧人物立绘区域 (预留) */
+        .character-sprite {
+            position: absolute;
+            bottom: 0;
+            left: 10%; /* 人物在左边 */
+            width: 400px; /* 人物宽度 */
+            height: 80vh; /* 人物高度 */
+            background-color: rgba(255, 192, 203, 0.2); /* 暂时用半透明粉色代表人物 */
+            border-radius: 20px 20px 0 0;
+            /* 以后在这里加：background-image: url('人物立绘.png'); */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            pointer-events: none; /* 让鼠标能穿过人物点击背景 */
+        }
+        
+        /* 标题 Logo 区域 */
+        .title-logo {
+            margin-top: 10vh;
+            margin-right: 10%;
+            text-align: right;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .title-logo h1 {
+            font-size: 60px;
+            color: #ff69b4; /* 亮粉色 */
+            margin: 0;
+            letter-spacing: 5px;
+        }
+        .title-logo p {
+            font-size: 20px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* 右侧菜单按钮区 */
+        .menu-box {
+            position: absolute;
+            right: 10%;
+            top: 40%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .game-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ffb7c5;
+            padding: 15px 60px;
+            font-size: 20px;
+            color: #d63384;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px); /* 毛玻璃效果 */
+        }
+
+        .game-btn:hover {
+            background: #ffb7c5;
+            color: white;
+            transform: scale(1.05) translateX(-10px); /* 悬停时稍微放大并左移 */
+            box-shadow: 0 6px 12px rgba(255, 183, 197, 0.4);
+        }
+
+        /* 底部对话框区域 */
+        .dialogue-box {
+            margin: 20px 10%;
+            margin-bottom: 50px;
+            background: rgba(0, 0, 0, 0.7); /* 深色半透明底 */
+            border: 2px solid #fff;
+            border-radius: 15px;
+            padding: 20px 30px;
+            color: white;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .name-tag {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: #ff69b4;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 18px;
+            border: 2px solid #fff;
+        }
+
+        .dialogue-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        
+        /* 光标闪烁动画 */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: white;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+
+    <div class="sakura" style="left: 10%; width: 10px; height: 10px; animation-duration: 8s;"></div>
+    <div class="sakura" style="left: 30%; width: 14px; height: 14px; animation-duration: 12s; animation-delay: 2s;"></div>
+    <div class="sakura" style="left: 70%; width: 8px; height: 8px; animation-duration: 7s; animation-delay: 1s;"></div>
+    <div class="sakura" style="left: 90%; width: 12px; height: 12px; animation-duration: 10s; animation-delay: 3s;"></div>
+
+    <div class="game-ui">
+        
+        <div class="title-logo">
+            <h1>NIKAIDOU SHINKU</h1>
+            <p>Welcome to my sweet dream</p>
+        </div>
+
+        <div class="menu-box">
+            <a href="#" class="game-btn">开始旅程 (Start)</a>
+            <a href="https://github.com/2108906502" target="_blank" class="game-btn">加载代码 (Load)</a>
+            <a href="mailto:your-email@example.com" class="game-btn">联系作者 (Contact)</a>
+            <a href="#" class="game-btn">系统设置 (Config)</a>
+        </div>
+
+        <div class="dialogue-box">
+            <div class="name-tag">Shinku</div>
+            <div class="dialogue-text">
+                你终于来了呢... <br>
+                我已经在这里等了很久了。要进来喝杯茶吗？<span class="cursor"></span>
+            </div>
+        </div>
+
+        <div class="character-sprite"></div>
+    </div>
+
+</body>
+</html>
