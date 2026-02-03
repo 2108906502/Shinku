@@ -412,12 +412,14 @@
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation * Math.PI / 180);
-                // 设置文字居中和大小
-                ctx.font = this.size + 'px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                // 绘制樱花 Emoji
-                ctx.fillText('🌸', 0, 0);
+                ctx.fillStyle = '#ffc0cb';
+                ctx.globalAlpha = 0.7;
+                ctx.beginPath();
+                // 绘制简单的花瓣形状
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size, 0, 0, this.size);
+                ctx.bezierCurveTo(-this.size, 0, -this.size / 2, -this.size / 2, 0, 0);
+                ctx.fill();
                 ctx.restore();
             }
         }
