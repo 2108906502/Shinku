@@ -273,12 +273,14 @@
     </style>
 </head>
 <body>
-        //* --- 横幅广告 --- */
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: 'fijfboh3zs',
-        });
-    </script>
+    <div>//横幅广告
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '10942362',
+            });
+        </script>
+    </div>
+
     
     <canvas id="sakura-canvas"></canvas>
 
@@ -291,14 +293,14 @@
             <a href="#"><i class="fas fa-user"></i> 关于我</a>
         </div>
     </nav>
-    //* --- 广告 --- */
-    <div style="text-align: center; margin: 20px 0;">
-        <script type="text/javascript">
-            aclib.runBanner({
-                zoneId: '10942362',
-            });
-        </script>
-    </div>
+
+    <script type="text/javascript">//页面内推送广告
+        aclib.runInPagePush({
+            zoneId: '10942354',
+            maxAds: 2,
+        });
+    </script>
+
     
     <header>
         <div class="hero-card">
