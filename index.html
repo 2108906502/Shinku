@@ -426,7 +426,7 @@
                 ctx.fill();
                 ctx.restore();
             }
-
+        }
         function initPetals() {
             for (let i = 0; i < petalCount; i++) {
                 petals.push(new Petal());
@@ -451,5 +451,98 @@
             canvas.height = window.innerHeight;
         });
     </script>
+    <script>
+    // --- 光标轨迹 ---
+    (function main() {
+        var cursor = { x: 0, y: 0 };
+        var particles = [];
+        var colors = ["#ffb7c5", "#ffc0cb", "#87ceeb", "#e0ffff"];
+
+        function init() {
+            bindEvents();
+            loop();
+        }
+
+        function bindEvents() {
+            document.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function onWindowResize(e) { }
+
+        function onMouseMove(e) {
+            cursor.x = e.clientX;
+            cursor.y = e.clientY;
+            addParticle(cursor.x, cursor.y);
+        }
+
+        function addParticle(x, y) {
+            var particle = new Particle();
+            particle.init(x, y);
+            particles.push(particle);
+        }
+
+        function updateParticles() {
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+            for (var i = particles.length - 1; i >= 0; i--) {
+                if (particles[i].lifeSpan < 0) {
+                    particles[i].die();
+                    particles.splice(i, 1);
+                }
+            }
+        }
+
+        function loop() {
+            requestAnimationFrame(loop);
+            updateParticles();
+        }
+
+        function Particle() {
+            this.lifeSpan = 120;
+            this.initialStyles = {
+                "position": "fixed",
+                "top": "0",
+                "display": "block",
+                "pointerEvents": "none",
+                "z-index": "10000000",
+                "width": "5px",
+                "height": "5px",
+                "will-change": "transform",
+                "border-radius": "50%"
+            };
+
+            this.init = function(x, y) {
+                this.velocity = {
+                    x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
+                    y: 1
+                };
+                this.position = { x: x - 10, y: y - 20 };
+                this.element = document.createElement('span');
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                this.element.style.background = color;
+                this.element.style.boxShadow = "0 0 5px " + color;
+                
+                for (var key in this.initialStyles) {
+                    this.element.style[key] = this.initialStyles[key];
+                }
+                document.body.appendChild(this.element);
+            };
+
+            this.update = function() {
+                this.position.x += this.velocity.x;
+                this.position.y += this.velocity.y;
+                this.lifeSpan--;
+                this.element.style.transform = "translate3d(" + this.position.x + "px," + this.position.y + "px,0) scale(" + (this.lifeSpan / 120) + ")";
+            };
+
+            this.die = function() {
+                this.element.parentNode.removeChild(this.element);
+            };
+        }
+        init();
+    })();
+</script>
 </body>
 </html>
